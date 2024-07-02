@@ -1,0 +1,48 @@
+package com.example.Back.Controller;
+
+import com.example.Back.Service.UserService;
+import com.example.Back.security.user.User;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/User")
+@RequiredArgsConstructor
+@CrossOrigin("*")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/add")
+    public String addUser(@RequestBody User user) {
+        userService.addUser(user);
+        return "success add User";
+    }
+
+    @GetMapping
+    public List<User> getUsers() {
+        return userService.getUsers();
+    }
+
+    @GetMapping("/get")
+    public User getUser(@RequestParam Long id) {
+        return userService.getUser(id);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Void> updateUser(@PathVariable Long id, @RequestBody User user) {
+        userService.updateUser(id, user);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
+}
