@@ -1,8 +1,12 @@
 package com.example.Back.Service.Impl;
 
+import com.example.Back.Entity.Event;
 import com.example.Back.Entity.EventComments;
+import com.example.Back.Entity.dtos.AddEventCommentRequest;
 import com.example.Back.Service.EventCommentsService;
 import com.example.Back.repository.EventCommentsRepository;
+import com.example.Back.repository.EventRepository;
+import com.example.Back.security.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,10 +18,22 @@ import java.util.List;
 public class EventCommentsServiceImpl implements EventCommentsService {
     @Autowired
     private EventCommentsRepository eventCommentsRepository;
+    @Autowired
+    private EventRepository eventRepository;
+
+    @Autowired
+    private UserServiceImpl userServiceImpl;
 
     @Override
-    public void addEventComments(EventComments eventComments) {
-        eventCommentsRepository.save(eventComments);
+    public void addEventComments(AddEventCommentRequest eventComments) {
+        Event event = this.eventRepository.findById(eventComments.getEventId()).get();
+        User user = this.userServiceImpl.getAuthenticatedUser();
+        EventComments eventComment = EventComments.builder()
+                .event(event)
+                .user(user)
+                .CommentText(eventComments.getComment())
+                .build();
+        eventCommentsRepository.save(eventComment);
     }
 
     @Override

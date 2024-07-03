@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 import com.example.Back.security.user.User;
 
 @Getter
@@ -34,6 +36,12 @@ public class Event {
     private Double longitude;
 
     private Integer maxParticipants;
+
+    @ManyToMany
+    private List<Ratings> ratingsList;
+
+    @ManyToMany
+    private List<EventComments> commentsList;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

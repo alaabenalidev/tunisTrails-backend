@@ -1,5 +1,6 @@
 package com.example.Back.Service.Impl;
 import com.example.Back.Service.UserService;
+import com.example.Back.security.user.Role;
 import com.example.Back.security.user.User;
 import com.example.Back.security.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getUsersByAdmin() {
+        return userRepository.findAllByRole(Role.USER);
+    }
+
+    @Override
     public User getUser(Long id) {
         User user = userRepository
                 .findById(id)
@@ -57,6 +63,21 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid user id " + id));
         userRepository.delete(user);
     }
+
+    @Override
+    public void enableUser(Long id) {
+        User user = this.userRepository.findById(id).get();
+        user.setAccountLocked(false);
+        this.userRepository.save(user);
+    }
+
+    @Override
+    public void disableUser(Long id) {
+        User user = this.userRepository.findById(id).get();
+        user.setAccountLocked(true);
+        this.userRepository.save(user);
+    }
+
     @Override
     public Authentication Authenticate(String name, String password) {
         return null;

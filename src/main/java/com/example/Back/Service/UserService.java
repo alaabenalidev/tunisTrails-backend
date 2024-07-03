@@ -10,6 +10,7 @@ public interface UserService {
     void addUser(User user);
 
     List<User> getUsers();
+    List<User> getUsersByAdmin();
 
     User getUser(Long id);
 
@@ -17,6 +18,8 @@ public interface UserService {
 
 
     void deleteUser(Long id);
+    void enableUser(Long id);
+    void disableUser(Long id);
 
     Authentication Authenticate(String name, String password);
 }

@@ -1,6 +1,7 @@
 package com.example.Back.Controller;
 
 import com.example.Back.Entity.Ratings;
+import com.example.Back.Entity.dtos.AddRatingRequest;
 import com.example.Back.Service.RatingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public class RatingsController {
     private RatingsService ratingsService;
 
     @PostMapping("/add")
-    public String addRatings(@RequestBody Ratings ratings){
+    public String addRatings(@RequestBody AddRatingRequest ratings){
         ratingsService.addRatings(ratings);
         return "success add rating";
     }

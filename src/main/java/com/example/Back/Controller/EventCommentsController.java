@@ -1,5 +1,6 @@
 package com.example.Back.Controller;
 import com.example.Back.Entity.EventComments;
+import com.example.Back.Entity.dtos.AddEventCommentRequest;
 import com.example.Back.Service.EventCommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ public class EventCommentsController {
     private EventCommentsService eventCommentsService;
 
     @PostMapping("/add")
-    public String addEventComments(@RequestBody EventComments eventComments){
+    public String addEventComments(@RequestBody AddEventCommentRequest eventComments){
         eventCommentsService.addEventComments(eventComments);
 
         return "success add comment";

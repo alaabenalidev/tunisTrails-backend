@@ -27,6 +27,11 @@ public class ReservationController {
         return reservationService.getReservations();
     }
 
+    @GetMapping("/by-user")
+    public List<Reservation> getReservationsByUser() {
+        return reservationService.getReservationsByUser();
+    }
+
     @GetMapping("/get")
     public Reservation getReservation(@RequestParam Integer id) {
         return reservationService.getReservation(id);

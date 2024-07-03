@@ -2,6 +2,7 @@ package com.example.Back.Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.example.Back.security.user.User;
@@ -10,14 +11,14 @@ import com.example.Back.security.user.User;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Builder
 public class Ratings {
 
     @Id
     @GeneratedValue
     private Integer idRatings;
 
-    private String ratingValue;
+    private int ratingValue;
 
     @ManyToOne
     @JoinColumn(name = "id")

@@ -5,6 +5,7 @@ import com.example.Back.Entity.dtos.CreateReservationRequest;
 import com.example.Back.Service.ReservationService;
 import com.example.Back.repository.EventRepository;
 import com.example.Back.repository.ReservationRepository;
+import com.example.Back.security.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,12 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public List<Reservation> getReservations() {
         return reservationRepository.findAll();
+    }
+
+    @Override
+    public List<Reservation> getReservationsByUser() {
+        User user = userServiceImpl.getAuthenticatedUser();
+        return reservationRepository.findAllByUser(user);
     }
 
     @Override

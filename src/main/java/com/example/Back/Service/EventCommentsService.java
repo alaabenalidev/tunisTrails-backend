@@ -1,11 +1,12 @@
 package com.example.Back.Service;
 
 import com.example.Back.Entity.EventComments;
+import com.example.Back.Entity.dtos.AddEventCommentRequest;
 
 import java.util.List;
 
 public interface EventCommentsService {
-    void addEventComments(EventComments eventComments);
+    void addEventComments(AddEventCommentRequest eventComments);
 
     List<EventComments> getEventComments();
 
