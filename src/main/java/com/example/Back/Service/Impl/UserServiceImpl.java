@@ -47,12 +47,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(Long id, User user) {
         // Check whether the user is in the database or not
-        userRepository
+        User userUpdate = userRepository
                 .findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid user id " + id));
 
-        user.setId(id);
-        userRepository.save(user);
+        userUpdate.setId(id);
+        userUpdate.setName(user.getName());
+        userUpdate.setEmail(user.getEmail());
+        userUpdate.setAddress(user.getAddress());
+        userUpdate.setPhoneNumber(user.getPhoneNumber());
+
+        userRepository.save(userUpdate);
     }
 
     @Override
