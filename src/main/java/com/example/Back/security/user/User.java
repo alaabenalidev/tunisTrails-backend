@@ -23,6 +23,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(nullable = false,unique = true)
     private String name;
     private String email;
     private String address;
