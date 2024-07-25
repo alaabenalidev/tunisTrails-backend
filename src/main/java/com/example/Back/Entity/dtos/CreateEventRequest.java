@@ -1,5 +1,6 @@
 package com.example.Back.Entity.dtos;
 
+import com.example.Back.Entity.enums.EType;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -12,7 +13,8 @@ import java.time.LocalDateTime;
 public class CreateEventRequest {
     private String title;
 
-    private String type;
+    private EType type;
+    private String location;
 
     private String description;
 
@@ -25,4 +27,6 @@ public class CreateEventRequest {
     private Double longitude;
 
     private Integer maxParticipants;
+
+    private byte[] image;
 }

@@ -1,6 +1,8 @@
 package com.example.Back.Entity;
 
+import com.example.Back.Entity.enums.EType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,9 +23,14 @@ public class Event {
     @GeneratedValue
     private Integer idEvent;
 
+    @Lob
+    @Column(length = 50000000)
+    private byte[] image;
+
     private String title;
 
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private EType type;
 
     private String description;
 
@@ -37,10 +44,13 @@ public class Event {
 
     private Integer maxParticipants;
 
+    private String location;
+
     @ManyToMany
     private List<Ratings> ratingsList;
 
     @ManyToMany
+    @JsonProperty
     private List<EventComments> commentsList;
 
     @ManyToOne

@@ -2,11 +2,11 @@ package com.example.Back.Service.Impl;
 
 import com.example.Back.Entity.Event;
 import com.example.Back.Entity.dtos.CreateEventRequest;
+import com.example.Back.Entity.enums.EType;
 import com.example.Back.Service.EventService;
 import com.example.Back.repository.EventRepository;
-import com.example.Back.security.auth.AuthenticationService;
 import com.example.Back.security.user.User;
-import com.example.Back.security.user.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @Service
+@Slf4j
 public class EventServiceImpl implements EventService {
 
     @Autowired
@@ -35,6 +36,8 @@ public class EventServiceImpl implements EventService {
         ev.setLatitude(event.getLatitude());
         ev.setTitle(event.getTitle());
         ev.setType(event.getType());
+        ev.setLocation(event.getLocation());
+        ev.setImage(event.getImage());
         ev.setMaxParticipants(event.getMaxParticipants());
         eventRepository.save(ev);
     }
@@ -76,5 +79,16 @@ public class EventServiceImpl implements EventService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid event id " + id));
 
         eventRepository.delete(event);
+    }
+
+    @Override
+    public List<Event> searchByKeyword(String keyword, String type) {
+        if (type != null && type != "" && type.length() > 0) {
+            EType eType = EType.valueOf(type);
+            return eventRepository.findByLocationIsContainingIgnoreCaseOrTitleContainingIgnoreCaseAndType(keyword, keyword, eType);
+        }
+
+        return eventRepository.findByLocationIsContainingIgnoreCaseOrTitleContainingIgnoreCase(keyword, keyword);
+
     }
 }
