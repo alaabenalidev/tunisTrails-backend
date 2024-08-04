@@ -52,6 +52,11 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public List<Reservation> getReservationsByEvent(int idEvent) {
+        return reservationRepository.findAllByEvent(this.eventRepository.findById(idEvent).get());
+    }
+
+    @Override
     public Reservation getReservation(Integer id) {
         return reservationRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid reservation id: " + id));

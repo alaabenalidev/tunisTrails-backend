@@ -32,6 +32,11 @@ public class ReservationController {
         return reservationService.getReservationsByUser();
     }
 
+    @GetMapping("/by-event/{id}")
+    public List<Reservation> getReservationsByEvent(@PathVariable int id) {
+        return reservationService.getReservationsByEvent(id);
+    }
+
     @GetMapping("/get")
     public Reservation getReservation(@RequestParam Integer id) {
         return reservationService.getReservation(id);

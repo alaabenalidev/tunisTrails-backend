@@ -12,6 +12,7 @@ public interface ReservationService {
     List<Reservation> getReservations();
 
     List<Reservation> getReservationsByUser();
+    List<Reservation> getReservationsByEvent(int idEvent);
 
     Reservation getReservation(Integer id);
 
